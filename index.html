@@ -3,94 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masovskiy Apps</title>
+    <title>CertInstaller1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --systemBlue: #007AFF;
+            --systemPurple: #AF52DE;
+            --systemBackground: #F2F2F7;
+            --secondarySystemBackground: #FFFFFF;
+            --tertiarySystemBackground: #E5E5EA;
+            --label: #000000;
+            --secondaryLabel: #3C3C4399;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --systemBackground: #000000;
+                --secondarySystemBackground: #1C1C1E;
+                --tertiarySystemBackground: #2C2C2E;
+                --label: #FFFFFF;
+                --secondaryLabel: #EBEBF599;
+            }
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #000;
-            color: #0f0;
+            background: linear-gradient(to bottom, var(--systemBackground), var(--secondarySystemBackground));
+            color: var(--label);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            min-height: 100vh;
         }
-        
+
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
             padding: 20px;
         }
-        
-        header {
-            text-align: center;
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding-top: 30px;
             margin-bottom: 30px;
-            border-bottom: 1px solid #0f0;
-            padding-bottom: 20px;
         }
-        
-        .ascii-art {
-            font-family: monospace;
-            white-space: pre;
+
+        .ascii-logo {
+            font-family: 'Courier New', monospace;
             font-size: 12px;
             line-height: 1.2;
-            margin: 20px 0;
-        }
-        
-        h1 {
-            color: #0f0;
-            margin-top: 0;
-        }
-        
-        .instruction {
-            background-color: #111;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #0f0;
-        }
-        
-        .step {
-            margin-bottom: 15px;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .step:before {
-            content: ">";
-            position: absolute;
-            left: 0;
-            color: #0f0;
-        }
-        
-        .download-btn {
-            display: inline-block;
-            background-color: #0f0;
-            color: #000;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-        
-        .download-btn:hover {
-            background-color: #0c0;
-        }
-        
-        footer {
+            color: var(--systemBlue);
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #0f0;
-            font-size: 14px;
-            color: #555;
+            white-space: pre;
+            background-color: var(--tertiarySystemBackground);
+            padding: 15px;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        .header-icon {
+            font-size: 40px;
+            color: var(--systemBlue);
+        }
+
+        .card {
+            background-color: var(--tertiarySystemBackground);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .install-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, var(--systemBlue), var(--systemPurple));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .install-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .install-button:active {
+            transform: translateY(0);
+        }
+
+        .instructions {
+            margin-top: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--systemBlue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .hint {
+            font-size: 0.875rem;
+            color: var(--secondaryLabel);
+            text-align: center;
+            margin: 20px 0;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="ascii-art">
+        <div class="header">
+            <div class="ascii-logo">
 
 ███╗   ███╗ █████╗ ███████╗ ██████╗ ██╗   ██╗███████╗██╗  ██╗ ██╗██╗   ██╗
 ████╗ ████║██╔══██╗██╔════╝██╔═████╗██║   ██║██╔════╝██║ ██╔╝███║╚██╗ ██╔╝
@@ -100,27 +151,52 @@
 ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝ ╚═╝   ╚═╝   
                                                                           
             </div>
-            <h1>CertInstaller1</h1>
-        </header>
-        
-        <main>
-            <div class="instruction">
-                <h2>Инструкция по установке:</h2>
-                <div class="step">Нажать на кнопку "Установить Masovskiy CA и Masovskiy Apps"</div>
-                <div class="step">Сохранить файлы в формате .mobileconfig</div>
-                <div class="step">Открыть Файлы -> открыть client.mobileconfig</div>
-                <div class="step">Установить профиль в настройках</div>
-                <div class="step">Перейти в Основные - Об этом устройстве - Доверие сертификатам и выключить пункт Masovskiy CA</div>
-                <div class="step">Открыть файл mas0vsk1yy-apps.mobileconfig</div>
-                <div class="step">Установить его в настройках</div>
-                
-                <a href="#" class="download-btn">Установить Masovskiy CA и Masovskiy Apps</a>
+            <div class="header-icon">
+                <i class="fas fa-lock-shield"></i>
             </div>
-        </main>
-        
-        <footer>
-            © 2025 Masovskiy Apps. Все права защищены.
-        </footer>
+        </div>
+
+        <div class="card">
+            <button class="install-button">
+                <i class="fas fa-lock"></i>
+                <span>Установить CertInstaller1</span>
+            </button>
+
+            <div class="instructions">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>Нажать на кнопку установить Masovskiy CA и Masovskiy Apps</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>Сохранить файлы в формате .mobileconfig</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>Открыть Файлы -> открыть client.mobileconfig</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>Установить профиль в настройках</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div>Перейти в Основные - Об этом устройстве - Доверие сертификатам и выключить пункт Masovskiy CA</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div>Открыть файл mas0vsk1yy-apps.mobileconfig</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div>Установить его в настройках</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hint">
+            После установки перезагрузите устройство для применения изменений
+        </div>
     </div>
 </body>
 </html>
