@@ -2,181 +2,263 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masovskiy Apps</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --systemBlue: #007AFF;
-            --systemPurple: #AF52DE;
-            --systemBackground: #F2F2F7;
-            --secondarySystemBackground: #FFFFFF;
-            --tertiarySystemBackground: #E5E5EA;
-            --label: #000000;
-            --secondaryLabel: #3C3C4399;
+            --primary: #007AFF;
+            --primary-dark: #0066CC;
+            --purple: #AF52DE;
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-100: #F2F2F7;
+            --gray-200: #E5E5EA;
+            --gray-800: #1C1C1E;
+            --gray-900: #0A0A0A;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --systemBackground: #000000;
-                --secondarySystemBackground: #1C1C1E;
-                --tertiarySystemBackground: #2C2C2E;
-                --label: #FFFFFF;
-                --secondaryLabel: #EBEBF599;
+                --primary: #0A84FF;
+                --primary-dark: #007AFF;
+                --gray-100: #1C1C1E;
+                --gray-200: #2C2C2E;
+                --gray-800: #E5E5EA;
+                --gray-900: #F2F2F7;
             }
         }
 
         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-text-size-adjust: 100%;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(to bottom, var(--systemBackground), var(--secondarySystemBackground));
-            color: var(--label);
-            margin: 0;
-            padding: 0;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+            color: var(--gray-900);
             min-height: 100vh;
-            -webkit-overflow-scrolling: touch;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 100%;
-            padding: 15px;
-            padding-bottom: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
         }
 
+        /* Анимированный хакерский заголовок */
         .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            padding-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .ascii-logo {
-            font-family: 'Courier New', monospace;
-            font-size: 10px;
-            line-height: 1.1;
-            color: var(--systemBlue);
             text-align: center;
-            white-space: pre;
-            background-color: var(--tertiarySystemBackground);
-            padding: 12px;
-            border-radius: 10px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            max-width: 100%;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        @media (max-width: 350px) {
-            .ascii-logo {
-                font-size: 8px;
-                padding: 8px;
+        .ascii-art {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.3;
+            color: var(--primary);
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 0 auto 1.5rem;
+            overflow-x: auto;
+            max-width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 122, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .ascii-art:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 122, 255, 0.15);
+        }
+
+        @media (max-width: 600px) {
+            .ascii-art {
+                font-size: 10px;
+                padding: 1rem;
             }
         }
 
-        .header-icon {
-            font-size: 36px;
-            color: var(--systemBlue);
+        .title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            background: linear-gradient(45deg, var(--primary), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
         }
 
+        /* Карточка с инструкцией */
         .card {
-            background-color: var(--tertiarySystemBackground);
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
-        .install-button {
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 122, 255, 0.15);
+        }
+
+        /* Кнопка установки */
+        .install-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 0.8rem;
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(to right, var(--systemBlue), var(--systemPurple));
-            color: white;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            color: var(--white);
             border: none;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 500;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
-            -webkit-appearance: none;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 122, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .install-button:active {
-            transform: scale(0.98);
-            opacity: 0.9;
+        .install-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
         }
 
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+        }
+
+        .install-btn:hover::after {
+            left: 100%;
+        }
+
+        .install-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Список инструкций */
         .instructions {
-            margin-top: 18px;
+            margin-top: 1.5rem;
         }
 
         .step {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            font-size: 0.92rem;
+            margin-bottom: 1.2rem;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 122, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .step:hover {
+            background: rgba(0, 122, 255, 0.1);
+            transform: translateX(5px);
         }
 
         .step-number {
             flex-shrink: 0;
-            width: 22px;
-            height: 22px;
-            background-color: var(--systemBlue);
-            color: white;
+            width: 26px;
+            height: 26px;
+            background: var(--primary);
+            color: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            font-size: 0.75rem;
+            margin-right: 1rem;
             font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
         }
 
+        .step-text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        /* Подсказка внизу */
         .hint {
-            font-size: 0.82rem;
-            color: var(--secondaryLabel);
             text-align: center;
-            margin: 18px 0;
-            line-height: 1.4;
-            padding: 0 10px;
+            font-size: 0.9rem;
+            color: var(--gray-800);
+            margin-top: 2rem;
+            opacity: 0.8;
+            animation: fadeIn 1.2s ease-out;
         }
 
-        /* iOS-specific tweaks */
-        @supports (-webkit-touch-callout: none) {
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Адаптация под темную тему */
+        @media (prefers-color-scheme: dark) {
             body {
-                padding-bottom: env(safe-area-inset-bottom);
+                background: linear-gradient(135deg, var(--gray-100), var(--black));
             }
             
-            .container {
-                padding-left: max(15px, env(safe-area-inset-left));
-                padding-right: max(15px, env(safe-area-inset-right));
+            .card {
+                background: var(--gray-800);
+                border-color: rgba(255, 255, 255, 0.05);
             }
             
-            .install-button {
-                padding: 15px;
+            .step {
+                background: rgba(10, 132, 255, 0.1);
             }
+            
+            .step:hover {
+                background: rgba(10, 132, 255, 0.2);
+            }
+        }
+
+        /* Эффекты для кнопки при нажатии */
+        .install-btn:active {
+            animation: pulse 0.4s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="ascii-logo">
-
+        <header class="header">
+            <div class="ascii-art">
+                
 ███╗   ███╗ █████╗ ███████╗ ██████╗ ██╗   ██╗███████╗██╗  ██╗ ██╗██╗   ██╗
 ████╗ ████║██╔══██╗██╔════╝██╔═████╗██║   ██║██╔════╝██║ ██╔╝███║╚██╗ ██╔╝
 ██╔████╔██║███████║███████╗██║██╔██║██║   ██║███████╗█████╔╝ ╚██║ ╚████╔╝ 
@@ -185,77 +267,79 @@
 ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝ ╚═╝   ╚═╝   
                                                                           
             </div>
-            <div class="header-icon">
-                <i class="fas fa-lock-shield"></i>
-            </div>
-        </div>
+        </header>
 
-        <div class="card">
-            <button class="install-button" id="installButton">
-                <i class="fas fa-lock"></i>
-                <span>Установить CertInstaller1</span>
-            </button>
+        <main>
+            <div class="card">
+                <button class="install-btn" id="installButton">
+                    <i class="fas fa-download"></i>
+                    <span>Установить CertInstaller1</span>
+                </button>
 
-            <div class="instructions">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div>Нажать на кнопку установить Masovskiy CA и Masovskiy Apps</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div>Сохранить файлы в формате .mobileconfig</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div>Открыть Файлы → открыть client.mobileconfig</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div>Установить профиль в настройках</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <div>Перейти в Основные → Об этом устройстве → Доверие сертификатам и выключить пункт Masovskiy CA</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <div>Открыть файл mas0vsk1yy-apps.mobileconfig</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">7</div>
-                    <div>Установить его в настройках</div>
+                <div class="instructions">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Сохранить файлы в формате .mobileconfig</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Открыть Файлы → открыть client.mobileconfig</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Установить профиль в настройках</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Перейти в Основные → Об этом устройстве → Доверие сертификатам и выключить пункт Masovskiy CA</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-text">Открыть файл mas0vsk1yy-apps.mobileconfig</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-text">Установить его в настройках</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="hint">
-            После установки перезагрузите устройство для применения изменений
-        </div>
+            <p class="hint">
+                После установки перезагрузите устройство для применения изменений
+            </p>
+        </main>
     </div>
 
     <script>
-        // iOS-специфичная обработка нажатия кнопки
-        document.getElementById('installButton').addEventListener('click', function() {
-            // Здесь будет логика для скачивания файлов
-            // В демо-версии просто показываем alert
-            if (window.webkit && window.webkit.messageHandlers) {
-                // Для встроенного в приложение WebView
-                window.webkit.messageHandlers.installButtonClicked.postMessage({});
-            } else {
-                // Для мобильного Safari
-                window.location.href = "https://example.com/download?files=client,mas0vsk1yy-apps";
-            }
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((step, index) => {
+                step.style.animation = `fadeIn 0.5s ease-out ${index * 0.1 + 0.3}s forwards`;
+                step.style.opacity = 0;
+            });
         });
 
-        // Добавляем поддержку безопасных зон на iPhone X и новее
-        document.documentElement.style.setProperty(
-            '--safe-area-inset-bottom', 
-            'env(safe-area-inset-bottom, 0px)'
-        );
-        document.documentElement.style.setProperty(
-            '--safe-area-inset-top', 
-            'env(safe-area-inset-top, 0px)'
-        );
+        // Обработка кнопки установки
+        document.getElementById('installButton').addEventListener('click', function() {
+            const repoName = window.location.pathname.split('/')[1];
+            const isGitHubPages = repoName && repoName.endsWith('.github.io');
+            
+            if (isGitHubPages) {
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = `/${repoName}/CertInstaller1.ipa`;
+            }
+
+            // Анимация кнопки при нажатии
+            const btn = document.querySelector('.download-btn');
+            btn.addEventListener('click', function() {
+                this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Скачивание...`;
+                setTimeout(() => {
+                    this.innerHTML = `<i class="fas fa-check"></i> Скачано!`;
+                }, 1500);
+            });
+        });
+        });
     </script>
 </body>
 </html>
