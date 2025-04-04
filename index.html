@@ -47,9 +47,18 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         /* Анимированный хакерский заголовок */
@@ -57,6 +66,7 @@
             text-align: center;
             margin-bottom: 3rem;
             animation: fadeIn 0.8s ease-out;
+            grid-column: 1 / -1;
         }
 
         .ascii-art {
@@ -98,15 +108,17 @@
             letter-spacing: -0.5px;
         }
 
-        /* Карточка с инструкцией */
+        /* Карточки */
         .card {
             background: var(--white);
             border-radius: 20px;
             padding: 2rem;
-            margin-bottom: 2rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid rgba(0, 0, 0, 0.03);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
@@ -114,15 +126,28 @@
             box-shadow: 0 15px 40px rgba(0, 122, 255, 0.15);
         }
 
-        /* Кнопка установки */
-        .install-btn {
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .card-title i {
+            font-size: 1.8rem;
+        }
+
+        /* Кнопки */
+        .btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
             width: 100%;
             padding: 1.2rem;
-            background: linear-gradient(135deg, var(--primary), var(--purple));
             color: var(--white);
             border: none;
             border-radius: 14px;
@@ -134,9 +159,19 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            text-align: center;
         }
 
-        .install-btn::after {
+        .btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+        }
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #5e5e5e, #3a3a3a);
+        }
+
+        .btn::after {
             content: '';
             position: absolute;
             top: -50%;
@@ -152,22 +187,23 @@
             transition: all 0.5s ease;
         }
 
-        .install-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
         }
 
-        .install-btn:hover::after {
+        .btn:hover::after {
             left: 100%;
         }
 
-        .install-btn:active {
+        .btn:active {
             transform: translateY(0);
         }
 
         /* Список инструкций */
         .instructions {
             margin-top: 1.5rem;
+            flex: 1;
         }
 
         .step {
@@ -214,6 +250,7 @@
             margin-top: 2rem;
             opacity: 0.8;
             animation: fadeIn 1.2s ease-out;
+            grid-column: 1 / -1;
         }
 
         /* Анимации */
@@ -249,8 +286,21 @@
         }
 
         /* Эффекты для кнопки при нажатии */
-        .install-btn:active {
+        .btn:active {
             animation: pulse 0.4s ease;
+        }
+
+        /* Бейдж срока действия */
+        .badge {
+            display: inline-block;
+            background: rgba(0, 200, 0, 0.1);
+            color: #00c000;
+            padding: 0.3rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(0, 200, 0, 0.3);
         }
     </style>
 </head>
@@ -258,56 +308,87 @@
     <div class="container">
         <header class="header">
             <div class="ascii-art">
-                
 ███╗   ███╗ █████╗ ███████╗ ██████╗ ██╗   ██╗███████╗██╗  ██╗ ██╗██╗   ██╗
 ████╗ ████║██╔══██╗██╔════╝██╔═████╗██║   ██║██╔════╝██║ ██╔╝███║╚██╗ ██╔╝
 ██╔████╔██║███████║███████╗██║██╔██║██║   ██║███████╗█████╔╝ ╚██║ ╚████╔╝ 
 ██║╚██╔╝██║██╔══██║╚════██║████╔╝██║╚██╗ ██╔╝╚════██║██╔═██╗  ██║  ╚██╔╝  
 ██║ ╚═╝ ██║██║  ██║███████║╚██████╔╝ ╚████╔╝ ███████║██║  ██╗ ██║   ██║   
-╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝ ╚═╝   ╚═╝   
-                                                                          
+╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝ ╚═╝   ╚═╝
             </div>
         </header>
 
-        <main>
-            <div class="card">
-                <button class="install-btn" id="installButton">
-                    <i class="fas fa-download"></i>
-                    <span>Установить CertInstaller1</span>
-                </button>
-
-                <div class="instructions">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-text">Сохранить файлы в формате .mobileconfig</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-text">Открыть Файлы → открыть client.mobileconfig</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-text">Установить профиль в настройках</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-text">Перейти в Основные → Об этом устройстве → Доверие сертификатам и выключить пункт Masovskiy CA</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">5</div>
-                        <div class="step-text">Открыть файл mas0vsk1yy-apps.mobileconfig</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">6</div>
-                        <div class="step-text">Установить его в настройках</div>
-                    </div>
+        <!-- Основная карточка с CertInstaller -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-mobile-alt"></i>CertInstaller1</h2>
+            
+            <div class="instructions">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Сохранить файлы в формате .mobileconfig</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Открыть Файлы → открыть client.mobileconfig</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Установить профиль в настройках</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Перейти в Основные → Об этом устройстве → Доверие сертификатам и выключить пункт Masovskiy CA</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-text">Открыть файл mas0vsk1yy-apps.mobileconfig</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-text">Установить его в настройках</div>
                 </div>
             </div>
 
-            <p class="hint">
-                После установки перезагрузите устройство для применения изменений
-            </p>
-        </main>
+            <a href="https://github.com/masovskiy/default/releases/download/v0.1-firstbeta/CertInstaller1.ipa" class="btn primary" id="downloadCertInstaller">
+                <i class="fas fa-download"></i>
+                Скачать CertInstaller1.ipa
+            </a>
+        </div>
+
+        <!-- Карточка с альтернативным скачиванием -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-file-archive"></i>Как скачать CertInstaller1?</h2>
+            
+            <div class="instructions">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">
+                        Если вы по каким-либо причинам не можете скачать CertInstaller -> загрузите этот архив
+                        <div class="badge">Сертификаты действительны до 24.12.2034</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Откройте Файлы → Mas0vsk1yyClient(CA)+Apps → и откройте client.mobileconfig, установите его в настройках</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Далее откройте Настройки → Основные → Об этом устройстве → Доверие сертификатам и включите пункт Masovskiy CA</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Теперь вы можете подписать любое приложение Masovskiy Apps</div>
+                </div>
+            </div>
+
+            <a href="https://github.com/masovskiy/default/raw/main/Mas0vsk1yyClient(CA)%2BApps.zip" class="btn secondary" id="downloadArchive">
+                <i class="fas fa-file-archive"></i>
+                Скачать Mas0vsk1yyClient(CA)+Apps.zip
+            </a>
+        </div>
+
+        <p class="hint">
+            После установки перезагрузите устройство для применения изменений
+        </p>
     </div>
 
     <script>
@@ -318,27 +399,30 @@
                 step.style.animation = `fadeIn 0.5s ease-out ${index * 0.1 + 0.3}s forwards`;
                 step.style.opacity = 0;
             });
-        });
 
-        // Обработка кнопки установки
-        document.getElementById('installButton').addEventListener('click', function() {
-            const repoName = window.location.pathname.split('/')[1];
-            const isGitHubPages = repoName && repoName.endsWith('.github.io');
-            
-            if (isGitHubPages) {
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = `/${repoName}/releases/download/v0.1-firstbeta/CertInstaller1.ipa`;
-            }
-
-            // Анимация кнопки при нажатии
-            const btn = document.querySelector('.download-btn');
-            btn.addEventListener('click', function() {
+            // Обработка кнопки скачивания CertInstaller
+            const certInstallerBtn = document.getElementById('downloadCertInstaller');
+            certInstallerBtn.addEventListener('click', function() {
                 this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Скачивание...`;
                 setTimeout(() => {
                     this.innerHTML = `<i class="fas fa-check"></i> Скачано!`;
+                    setTimeout(() => {
+                        this.innerHTML = `<i class="fas fa-download"></i> Скачать CertInstaller1.ipa`;
+                    }, 2000);
                 }, 1500);
             });
-        });
+
+            // Обработка кнопки скачивания архива
+            const archiveBtn = document.getElementById('downloadArchive');
+            archiveBtn.addEventListener('click', function() {
+                this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Скачивание...`;
+                setTimeout(() => {
+                    this.innerHTML = `<i class="fas fa-check"></i> Скачано!`;
+                    setTimeout(() => {
+                        this.innerHTML = `<i class="fas fa-file-archive"></i> Скачать Mas0vsk1yyClient(CA)+Apps.zip`;
+                    }, 2000);
+                }, 1500);
+            });
         });
     </script>
 </body>
